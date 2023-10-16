@@ -1,6 +1,8 @@
-const app = require("./app");
+"use strict";
 
-const PORT = 8000;
+import app from "./app.js";
+
+const PORT = process.env.PORT || 8000;
 
 const server = app.listen(PORT, () => {
   console.log(`Listen to port ${PORT}`);

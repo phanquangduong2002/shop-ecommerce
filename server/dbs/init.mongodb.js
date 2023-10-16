@@ -1,6 +1,14 @@
-const mongoose = require("mongoose");
+"use strict";
 
-const connectString = `mongodb://127.0.0.1:27017/shopee`;
+import mongoose from "mongoose";
+import { countConnect } from "../helpers/check.connect.js";
+import config from "../configs/config.mongodb.js";
+
+const {
+  db: { host, port, name },
+} = config;
+
+const connectString = `mongodb://${host}:${port}/${name}`;
 
 class Database {
   constructor() {
@@ -15,8 +23,12 @@ class Database {
     }
 
     mongoose
-      .connect(connectString)
-      .then((_) => console.log(`Connected Mongodb Success!!!`))
+      .connect(connectString, { maxPoolSize: 50 })
+      .then((_) => {
+        console.log(`ConnectString::`, connectString);
+        console.log(`Connected Mongodb Success!!!`);
+        countConnect();
+      })
       .catch((err) => console.log(`Error Connect!`));
   }
 
@@ -29,6 +41,4 @@ class Database {
   }
 }
 
-const instanceMongodb = Database.getInstance();
-
-module.exports = instanceMongodb;
+export default Database;

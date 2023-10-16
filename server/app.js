@@ -1,24 +1,38 @@
-const compression = require("compression");
-const express = require("express");
-const { default: helmet } = require("helmet");
-const morgan = require("morgan");
+"use strict";
+
+import dotenv from "dotenv";
+import compression from "compression";
+import express from "express";
+import morgan from "morgan";
+import helmet from "helmet";
+
+import Database from "./dbs/init.mongodb.js";
+import { checkOverload } from "./helpers/check.connect.js";
+
+import router from "./routes/index.js";
 
 const app = express();
+
+dotenv.config();
 
 // init middlewares
 app.use(morgan("dev"));
 app.use(helmet());
 app.use(compression());
-// init db
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 
-require("./dbs/init.mongodb");
+// init db
+Database.getInstance();
+// checkOverload();
+
 // init routes
-app.get("/", (req, res, next) => {
-  return res.status(200).json({
-    message: "Welcome!!!",
-  });
-});
+app.use("", router);
 
 // handling error
 
-module.exports = app;
+export default app;
