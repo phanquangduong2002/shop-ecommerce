@@ -1,20 +1,20 @@
 "use strict";
 
-import mongoose from "mongoose";
-import os from "os";
-import process from "process";
+const mongoose = require("mongoose");
+const os = require("os");
+const process = require("process");
 
 const _SECONDS = 5000;
 
 // count Connect
-export const countConnect = () => {
+const countConnect = () => {
   const numConnection = mongoose.connections.length;
   console.log(`Number of connections::${numConnection}`);
 };
 
 // check over load
 
-export const checkOverload = () => {
+const checkOverload = () => {
   setInterval(() => {
     const numConnection = mongoose.connections.length;
     const numCores = os.cpus().length;
@@ -29,4 +29,9 @@ export const checkOverload = () => {
       console.log(`Connection overload detected!`);
     }
   }, _SECONDS); // Monitor every 5 seconds
+};
+
+module.exports = {
+  countConnect,
+  checkOverload,
 };

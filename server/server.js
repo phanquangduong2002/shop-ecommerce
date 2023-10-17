@@ -1,6 +1,6 @@
 "use strict";
 
-import app from "./app.js";
+const app = require("./src/app");
 
 const PORT = process.env.PORT || 8000;
 

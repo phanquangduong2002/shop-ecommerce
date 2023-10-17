@@ -1,8 +1,8 @@
 "use strict";
 
-import mongoose from "mongoose";
-import { countConnect } from "../helpers/check.connect.js";
-import config from "../configs/config.mongodb.js";
+const mongoose = require("mongoose");
+const { countConnect } = require("../helpers/check.connect");
+const config = require("../configs/config.mongodb");
 
 const {
   db: { host, port, name },
@@ -41,4 +41,4 @@ class Database {
   }
 }
 
-export default Database;
+module.exports = Database;

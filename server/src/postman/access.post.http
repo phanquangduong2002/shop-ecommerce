@@ -1,0 +1,12 @@
+### signup
+
+POST http://localhost:8000/v1/api/shop/signup
+Content-Type: application/json
+x-api-key: 7e4b72eb32e9874cb3161fd023b44f5cbc8cf5d7f0fcdfa2c9a1c0bdbb1d8beee71edbde64eac79c7ed65f722014456ec70d9292f42a7fccc752595317ff2171
+
+{
+    "name": "phanquangduong",
+    "email": "phanquangduong2002@gmail.com",
+    "password": "12345"
+}
+

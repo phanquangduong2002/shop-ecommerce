@@ -1,6 +1,7 @@
 "use strict";
 
-import mongoose, { Schema } from "mongoose";
+const mongoose = require("mongoose");
+const { Schema } = require("mongoose");
 
 const DOCUMENT_NAME = "Shop";
 const COLLECTION_NAME = "Shops";
@@ -41,4 +42,4 @@ const shopSchema = new mongoose.Schema(
   }
 );
 
-export default mongoose.model(DOCUMENT_NAME, shopSchema);
+module.exports = mongoose.model(DOCUMENT_NAME, shopSchema);
