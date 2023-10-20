@@ -1,12 +1,11 @@
 "use strict";
 
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
+const { model, Schema, Types } = require("mongoose");
 
 const DOCUMENT_NAME = "Key";
 const COLLECTION_NAME = "Keys";
 
-var keyTokenSchema = new mongoose.Schema(
+var keyTokenSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
@@ -36,4 +35,4 @@ var keyTokenSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(DOCUMENT_NAME, keyTokenSchema);
+module.exports = model(DOCUMENT_NAME, keyTokenSchema);

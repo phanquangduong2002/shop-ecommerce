@@ -1,11 +1,11 @@
 "use strict";
 
-const mongoose = require("mongoose");
+const { model, Schema, Types } = require("mongoose");
 
 const DOCUMENT_NAME = "ApiKey";
 const COLLECTION_NAME = "ApiKeys";
 
-var apiKeySchema = new mongoose.Schema(
+var apiKeySchema = new Schema(
   {
     key: {
       type: String,
@@ -28,4 +28,4 @@ var apiKeySchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(DOCUMENT_NAME, apiKeySchema);
+module.exports = model(DOCUMENT_NAME, apiKeySchema);

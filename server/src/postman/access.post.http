@@ -2,7 +2,7 @@
 
 POST http://localhost:8000/v1/api/shop/signup
 Content-Type: application/json
-x-api-key: 7e4b72eb32e9874cb3161fd023b44f5cbc8cf5d7f0fcdfa2c9a1c0bdbb1d8beee71edbde64eac79c7ed65f722014456ec70d9292f42a7fccc752595317ff2171
+x-api-key: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NTMyOTVmOTVkZmFiN2VmZDg4NTZhN2IiLCJlbWFpbCI6InBoYW5xdWFuZ2R1b25nMjAwMkBnbWFpbC5jb20iLCJpYXQiOjE2OTc4MTQwMDksImV4cCI6MTY5Nzk4NjgwOX0.ZwZuDD-mQgnOUzkXKwsEMRAOtyCkc0E-y-Zk-NDBWEA
 
 {
     "name": "phanquangduong",

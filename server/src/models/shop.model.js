@@ -1,12 +1,11 @@
 "use strict";
 
-const mongoose = require("mongoose");
-const { Schema } = require("mongoose");
+const { model, Schema, Types } = require("mongoose");
 
 const DOCUMENT_NAME = "Shop";
 const COLLECTION_NAME = "Shops";
 
-const shopSchema = new mongoose.Schema(
+const shopSchema = new Schema(
   {
     name: {
       type: String,
@@ -42,4 +41,4 @@ const shopSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(DOCUMENT_NAME, shopSchema);
+module.exports = model(DOCUMENT_NAME, shopSchema);
