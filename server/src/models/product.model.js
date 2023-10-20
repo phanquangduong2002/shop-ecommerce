@@ -19,7 +19,7 @@ var productSchema = new Schema(
     },
     product_shop: { type: Schema.Types.ObjectId, ref: "Shop" },
     product_attributes: {
-      type: mongoose.Schema.Types.Mixed,
+      type: Schema.Types.Mixed,
       required: true,
     },
   },
