@@ -12,5 +12,16 @@ router.use(authenticationV2);
 
 /////////////
 router.post("", asyncHandler(productController.createProduct));
+router.post(
+  "/publish/:id",
+  asyncHandler(productController.publishProductForShop)
+);
+
+// query
+router.post("/drafts/all", asyncHandler(productController.getAllDraftsForShop));
+router.post(
+  "/published/all",
+  asyncHandler(productController.getAllPublishForShop)
+);
 
 module.exports = router;

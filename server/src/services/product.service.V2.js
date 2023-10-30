@@ -9,6 +9,12 @@ const {
 
 const { BadRequestError } = require("../core/error.response");
 
+const {
+  findAllDraftsForShop,
+  findAllPublishForShop,
+  publishProductByShop,
+} = require("../models/repostories/product.repo");
+
 // define Factory class to create product
 
 class ProductFactory {
@@ -28,17 +34,23 @@ class ProductFactory {
       throw new BadRequestError(`Invalid product types ${type}`);
 
     return new productClass(payload).createProduct();
+  }
 
-    // switch (type) {
-    //   case "Electronics":
-    //     return new Electronic(payload).createProduct();
-    //   case "Clothing":
-    //     return new Clothing(payload).createProduct();
-    //   case "Furniture":
-    //     return new Furniture(payload).createProduct();
-    //   default:
-    //     throw new BadRequestError(`Invalid product types ${type}`);
-    // }
+  // PUT //
+  static async publishProductByShop({ product_shop, product_id }) {
+    return await publishProductByShop({ product_shop, product_id });
+  }
+  // END PUT //
+
+  /// query
+  static async findAllDraftsForShop({ product_shop, limit = 50, skip = 0 }) {
+    const query = { product_shop, isDraft: true };
+    return await findAllDraftsForShop({ query, limit, skip });
+  }
+
+  static async findAllPublishForShop({ product_shop, limit = 50, skip = 0 }) {
+    const query = { product_shop, isPublished: true };
+    return await findAllPublishForShop({ query, limit, skip });
   }
 }
 
