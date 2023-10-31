@@ -25,6 +25,16 @@ class ProductController {
     }).send(res);
   };
 
+  unPublishProductForShop = async (req, res, next) => {
+    new SuccessResponse({
+      message: "unPublish product By Shop success!",
+      metaData: await ProductServiceV2.unPublishProductByShop({
+        product_shop: req.user.userId,
+        product_id: req.params.id,
+      }),
+    }).send(res);
+  };
+
   // QUERY
   /**
    * @desc Get all drafts for shop
@@ -54,6 +64,31 @@ class ProductController {
       message: "Get list Publish success!",
       metaData: await ProductServiceV2.findAllPublishForShop({
         product_shop: req.user.userId,
+      }),
+    }).send(res);
+  };
+
+  getListSearchProduct = async (req, res, next) => {
+    new SuccessResponse({
+      message: "Get list search Product success!",
+      metaData: await ProductServiceV2.searchProducts({
+        keySearch: req.params.keySearch,
+      }),
+    }).send(res);
+  };
+
+  findAllProducts = async (req, res, next) => {
+    new SuccessResponse({
+      message: "Get all products success!",
+      metaData: await ProductServiceV2.findAllProducts(req.query),
+    }).send(res);
+  };
+
+  findProduct = async (req, res, next) => {
+    new SuccessResponse({
+      message: "Get detail product success!",
+      metaData: await ProductServiceV2.findProduct({
+        product_id: req.params.product_id,
       }),
     }).send(res);
   };

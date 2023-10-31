@@ -45,8 +45,10 @@ var productSchema = new Schema(
   }
 );
 
-// Document middleware: runs before product saved and created
+// create index for search
+productSchema.index({ product_name: "text", product_description: "text" });
 
+// Document middleware: runs before product saved and created
 productSchema.pre("save", function (next) {
   this.product_slug = slugify(this.product_name, { lower: true });
   next();
