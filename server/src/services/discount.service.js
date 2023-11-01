@@ -6,7 +6,7 @@ const { convertToObjectIdMongodb } = require("../utils");
 const discount = require("../models/discount.model");
 const { findAllProducts } = require("../models/repositories/product.repo");
 const {
-  findAllDiscountCodesUnSelect,
+  findAllDiscountCodesSelect,
   checkDiscountExists,
 } = require("../models/repositories/discount.repo");
 
@@ -148,14 +148,14 @@ class DiscountService {
    */
 
   static async getAllDiscountCodesByShop({ limit, page, shopId }) {
-    const discounts = await findAllDiscountCodesUnSelect({
+    const discounts = await findAllDiscountCodesSelect({
       limit: +limit,
       page: +page,
       filter: {
         discount_shopId: convertToObjectIdMongodb(shopId),
         discount_is_active: true,
       },
-      unSelect: ["__v", "discount_shopId"],
+      select: ["discount_code", "discount_name"],
       model: discount,
     });
 
@@ -195,6 +195,8 @@ class DiscountService {
     if (!foundDiscount) throw new NotFoundError("Discount not exists!");
 
     const {
+      discount_start_date,
+      discount_end_date,
       discount_is_active,
       discount_max_uses,
       discount_min_order_value,
@@ -220,7 +222,7 @@ class DiscountService {
     if (discount_min_order_value > 0) {
       // get total
       totalOrder = products.reduce((acc, product) => {
-        return acc + products.quantity * product.price;
+        return acc + product.quantity * product.price;
       }, 0);
       if (totalOrder < discount_min_order_value) {
         throw new NotFoundError(
