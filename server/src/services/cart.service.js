@@ -25,7 +25,7 @@ class CartService {
       },
       options = { upsert: true, new: true };
 
-    return await cart.findByIdAndUpdate(query, updateOrInsert, options);
+    return await cart.findOneAndUpdate(query, updateOrInsert, options);
   }
 
   static async updateUserCartQuantity({ userId, product }) {
@@ -52,11 +52,9 @@ class CartService {
 
   static async addToCart({ userId, product = {} }) {
     // check cart ton tai hay khong?
-    const userCart = await cart
-      .findOne({
-        cart_userId: userId,
-      })
-      .lean();
+    const userCart = await cart.findOne({
+      cart_userId: userId,
+    });
     if (!userCart) {
       // create new cart for User
 
@@ -83,7 +81,7 @@ class CartService {
                 item_products: [
                     {
                         productId
-                        shoPId,
+                        shopId,
                         price,
                         old_quantity,
                         quantity,
@@ -94,7 +92,7 @@ class CartService {
        ]
    */
 
-  static async addToCartV2({ userId, product = {} }) {
+  static async addToCartV2({ userId, shop_order_ids = {} }) {
     const { productId, quantity, old_quantity } =
       shop_order_ids[0]?.item_products[0];
 
