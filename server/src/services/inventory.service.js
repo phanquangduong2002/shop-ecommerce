@@ -14,6 +14,19 @@ class InventoryService {
     const product = await getProductById(productId);
 
     if (!product) throw new BadRequestError("Product not exists!");
+
+    const query = { inven_shopId: shopId, inven_productId: productId },
+      updateSet = {
+        $inc: {
+          inven_stock: stock,
+        },
+        $set: {
+          inven_location: location,
+        },
+      },
+      options = { upsert: true, new: true };
+
+    return await inventory.findOneAndUpdate(query, updateSet, options);
   }
 }
 
