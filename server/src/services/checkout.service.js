@@ -3,7 +3,7 @@
 const { NotFoundError, BadRequestError } = require("../core/error.response");
 
 const { findCartById } = require("../models/repositories/cart.repo");
-const { checkProductServer } = require("../models/repositories/product.repo");
+const { checkProductsServer } = require("../models/repositories/product.repo");
 const DiscountService = require("./discount.service");
 
 class CheckoutService {
@@ -68,7 +68,8 @@ class CheckoutService {
       } = shop_order_ids[i];
 
       // check product available
-      const checkProductServer = await checkProductServer(item_products);
+      const checkProductServer = await checkProductsServer(item_products);
+
       if (!checkProductServer) throw new BadRequestError("Order wrong!!!");
 
       // tong tien don hang
