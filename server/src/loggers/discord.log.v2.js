@@ -17,7 +17,7 @@ class LoggerService {
 
     // add channelId
     const TOKEN_DISCORD =
-      "MTE3MDQxNDcyOTA1MTc3OTEwMg.GZG1an.i0tdgMSXIsgXo0JyORP270ivD7trKbGS6IJtIs";
+      "MTE3MDQxNDcyOTA1MTc3OTEwMg.GDVOyO.7z64MSPsqmIVIZ-2YlPdNbaB1xWupvqeS39j-E";
     const CHANNELID_DISCORD = "1170415538942513226";
     this.channelId = CHANNELID_DISCORD;
 
