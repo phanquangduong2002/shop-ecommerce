@@ -1,8 +1,12 @@
 "use strict";
 
+const dotenv = require("dotenv");
+
+dotenv.config();
+
 const { Client, GatewayIntentBits } = require("discord.js");
 
-// const { CHANNELID_DISCORD, TOKEN_DISCORD } = process.env;
+const { CHANNELID_DISCORD, TOKEN_DISCORD } = process.env;
 
 class LoggerService {
   constructor() {
@@ -16,9 +20,6 @@ class LoggerService {
     });
 
     // add channelId
-    const TOKEN_DISCORD =
-      "MTE3MDQxNDcyOTA1MTc3OTEwMg.GDVOyO.7z64MSPsqmIVIZ-2YlPdNbaB1xWupvqeS39j-E";
-    const CHANNELID_DISCORD = "1170415538942513226";
     this.channelId = CHANNELID_DISCORD;
 
     this.client.on("ready", () => {
