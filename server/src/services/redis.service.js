@@ -1,13 +1,21 @@
 "use strict";
 
-const { resolve } = require("path");
 const redis = require("redis");
 const { promisify } = require("util"); // chuyen doi ham thanh ham async await
 const {
   reservationInventory,
 } = require("../models/repositories/inventory.repo");
 
-const redisClient = redis.createClient();
+const redisClient = redis.createClient(6379, "localhost"); // hoặc 'localhost'
+
+redisClient
+  .connect()
+  .then(() => {
+    console.log("Connected to Redis!");
+  })
+  .catch((err) => {
+    console.error("Error connecting to Redis:", err);
+  });
 
 const pexpire = promisify(redisClient.pExpire).bind(redisClient);
 const setnxAsync = promisify(redisClient.setNX).bind(redisClient);
