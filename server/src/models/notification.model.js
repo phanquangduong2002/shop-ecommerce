@@ -17,7 +17,7 @@ var notificationSchema = new Schema(
       enum: ["ORDER-001", "ORDER-002", "PROMOTION-001", "SHOP-001"],
       required: true,
     },
-    noti_senderId: { type: String, required: true },
+    noti_senderId: { type: Types.ObjectId, ref: "Shop", required: true },
     noti_receivedId: { type: Number, required: true },
     noti_content: { type: String, required: true },
     noti_options: {
