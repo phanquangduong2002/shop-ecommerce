@@ -19,17 +19,39 @@ const MessageService = {
 
       const notiQueue = "notificationQueueProcess";
 
-      const timeExpried = 20000;
+      // TH1: TTL
+      // const timeExpried = 20000;
+      // setTimeout(() => {
+      //   channel.consume(notiQueue, (msg) => {
+      //     console.log(
+      //       `SEND notificationQueue successfully processed::`,
+      //       msg.content.toString()
+      //     );
+      //     channel.ack(msg);
+      //   });
+      // }, timeExpried);
 
-      setTimeout(() => {
-        channel.consume(notiQueue, (msg) => {
+      channel.consume(notiQueue, (msg) => {
+        try {
+          const numberTest = Math.random();
+          console.log({ numberTest });
+          if (numberTest < 0.6) {
+            throw new Error("Send notification failed:: HOT FIX");
+          }
+
           console.log(
             `SEND notificationQueue successfully processed::`,
             msg.content.toString()
           );
           channel.ack(msg);
-        });
-      }, timeExpried);
+        } catch (error) {
+          // console.error("SEND notification error:", error);
+          channel.nack(msg, false, false);
+          /*
+              nack: negative acknowledgement
+           */
+        }
+      });
     } catch (error) {
       console.error(`Error in consumerToQueueNormal::`, error);
     }
@@ -63,7 +85,7 @@ const MessageService = {
         queueResult.queue,
         (msgFailed) => {
           console.log(
-            `this notification error:, pls hot fix::`,
+            `this notification error, pls hot fix::`,
             msgFailed.content.toString()
           );
         },
