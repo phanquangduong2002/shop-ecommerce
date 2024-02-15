@@ -1,16 +1,16 @@
 'use strict'
 
 const { cloudinary } = require('../configs/cloudinary.config')
-
 const crypto = require('crypto')
-
+const urlImagePublic = `https://d33ebmlorusga.cloudfront.net`
 const {
   s3,
   PutObjectCommand,
   GetObjectCommand,
   DeleteObjectCommand
 } = require('../configs/s3.config')
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
+// const { getSignedUrl } = require('@aws-sdk/s3-request-presigner')
+const { getSignedUrl } = require('@aws-sdk/cloudfront-signer')
 
 /// upload file use S3Client ///
 
@@ -31,18 +31,30 @@ const uploadImageFromLocalS3 = async ({ file }) => {
 
     console.log(`result::`, result)
 
-    const signedUrl = new GetObjectCommand({
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: imageName
-    })
+    // const signedUrl = new GetObjectCommand({
+    //   Bucket: process.env.AWS_BUCKET_NAME,
+    //   Key: imageName
+    // })
 
-    const url = await getSignedUrl(s3, signedUrl, {
-      expiresIn: 3600
+    // const url = await getSignedUrl(s3, signedUrl, {
+    //   expiresIn: 3600
+    // })
+
+    // have cloudfront url export
+
+    const url = getSignedUrl({
+      url: `${urlImagePublic}/${imageName}`,
+      keyPairId: process.env.AWS_CLOUDFRONT_PUBLIC_KEY_ID,
+      dateLessThan: new Date(Date.now() + 1000 * 60),
+      privateKey: process.env.AWS_BUCKET_PRIVATE_KEY_ID
     })
 
     console.log(`url::`, url)
 
-    return url
+    return {
+      url,
+      result
+    }
 
     // return {
     //   image_url: result.secure_url,
